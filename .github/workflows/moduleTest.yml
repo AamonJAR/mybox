@@ -36,8 +36,8 @@ jobs:
         run: |
           cp -r ./release ./deployment
           cd deployment
-          docker build -t myapp:latest .
-          docker run -d -p 2222:22 -p 8080:80 --name myapp_container myapp:latest
+          docker build -t vulnerable-ubuntu .
+          docker run -d -p 2222:22 -p 8080:80 --name vulnerable-container vulnerable-ubuntu
 
       # 執行Pytest測試個案(1/3)-安裝Python(須配合pipenv版本)
       - name: 執行Pytest測試個案(1/3)-安裝Python(須配合pipenv版本)
@@ -48,7 +48,7 @@ jobs:
       # 執行Pytest測試(2/3)-安裝pipenv並復原虛擬環境
       - name: 執行Pytest測試(2/3)-安裝pipenv並復原虛擬環境
         run: |
-          cp -R src/scr_paperPassBox_test test
+          cp -R src test
           cd test
           pip install pipenv
           pipenv install --deploy --ignore-pipfile
